@@ -8,10 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        'main-text': '#191919',
+        'main-back-color': '#191919',
+        'main-color': '#829f82',
+      },
+      fontFamily: {
+        title: ['ClashDisplay'],
+        body: ['Nunito'],
       },
     },
   },
