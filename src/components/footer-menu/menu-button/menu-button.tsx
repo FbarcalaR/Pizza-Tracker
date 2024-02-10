@@ -1,13 +1,18 @@
+import { MouseEventHandler } from "react";
+
 type IProps = {
-    active?: boolean;
-    children: React.ReactNode;
-  }
-  
-  export default function MenuButton({ children, active = true }: IProps) {
-    return (
-      <button className={`w-9 h-9 ${active && 'pointer-events-none'}`}>
-        {children}
-      </button>
-    );
-  }
-  
+  active?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
+  children: React.ReactNode;
+};
+
+export default function MenuButton({ children, onClick, active = false }: IProps) {
+  return (
+    <button
+      className={`w-9 h-9 ${active && "[&>*]:text-main-color"}`}
+      onClick={(e) => onClick && onClick(e)}
+    >
+      {children}
+    </button>
+  );
+}

@@ -13,7 +13,7 @@ export default function BlockSection({ title, children, className }: IProps) {
     <div className={className}>
       <div
         onClick={() => setIsCollapsed((prev) => !prev)}
-        className="w-full border-b-2 border-main-color relative"
+        className="w-full border-b-2 border-main-color relative text-base"
       >
         <span className="w-full font-bold">{title}</span>
         <DropdownArrow

@@ -35,6 +35,7 @@ export class RecipeCalculator {
   ): ICalculatedRecipeStep {
     return {
       title: step.title,
+      restInHours: step.restInHours,
       ingredients: step.ingredients.map((i) =>
         this.mapToCalculatedRecipeIngredient(i, totalFlour)
       ),
@@ -70,6 +71,7 @@ export type ICalculatedRecipe = {
 export type ICalculatedRecipeStep = {
   title: string;
   ingredients: ICalculatedIngredient[];
+  restInHours?: number;
 };
 
 export type ICalculatedIngredient = {

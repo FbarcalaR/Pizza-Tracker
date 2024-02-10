@@ -17,7 +17,12 @@ export default function CalculationResult({ recipe }: IProps) {
               ingredient={ingredient.ingredient}
               amountInGrams={ingredient.amountInGrams}
             />
-          ))}
+            ))}
+          {step.restInHours &&
+            <div className="w-full flex justify-center">
+              <span className="text-base italic">Rest for about {step.restInHours}h</span>
+            </div>
+          }
         </BlockSection>
       ))}
     </div>

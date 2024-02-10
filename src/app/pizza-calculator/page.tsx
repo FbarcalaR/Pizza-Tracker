@@ -23,6 +23,7 @@ const mockRecipe1: IRecipe = {
         { ingredient: "flour nuvola", amountPercentage: 0.25 },
         { ingredient: "water", amountPercentage: 0.55 },
       ],
+      restInHours: 12
     },
     {
       title: "Step 2",
@@ -31,6 +32,7 @@ const mockRecipe1: IRecipe = {
         { ingredient: "yeast", amountPercentage: 0.006 },
         { ingredient: "salt", amountPercentage: 0.03 },
       ],
+      restInHours: 1
     },
   ],
 };

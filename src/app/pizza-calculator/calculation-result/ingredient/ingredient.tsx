@@ -1,10 +1,10 @@
-import { IIngredientAmount } from "@/api/recipes/types/ingredient";
+import { ICalculatedIngredient } from "../recipe-calculator/recipe-calculator";
 
-export default function Ingredient({ ingredient, amountInGrams }: IIngredientAmount) {
+export default function Ingredient({ ingredient, amountInGrams }: ICalculatedIngredient) {
     return (
       <div className="w-full flex justify-between">
-        <span>{ingredient}</span>
-        <span>{amountInGrams}g</span>
+        <span className="text-base">{ingredient}</span>
+        <span className="text-base">{amountInGrams}g</span>
       </div>
     );
   }
