@@ -89,6 +89,7 @@ export default function PizzaCalculator() {
         onFormChange={handleFormChanged}
         defaultValues={{doughBallsAmount: 1, recipeId: recipes[0]?.id}}
       ></CalculationForm>
+
       {calculatedRecipe && <CalculationResult recipe={calculatedRecipe} />}
 
       <div className="w-1/3">
