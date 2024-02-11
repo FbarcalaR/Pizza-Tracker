@@ -85,7 +85,7 @@ export default function PizzaCalculator() {
   }, [formValues]);
 
   return (
-    <div className="w-full flex flex-col items-center gap-7 p-8">
+    <div className="flex flex-col items-center gap-7">
       <CalculationForm
         recipeOptions={mockOptions}
         onFormChange={handleFormChanged}

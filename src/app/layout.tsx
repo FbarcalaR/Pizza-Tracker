@@ -15,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className='font-body flex items-center flex-col h-screen'>
-        {children}
+        <div className="w-full p-8">
+          {children}
+        </div>
         <FooterMenu></FooterMenu>
       </body>
     </html>
