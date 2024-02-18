@@ -1,11 +1,11 @@
 import { IIngredient } from "@/api/recipes/types/ingredient";
-import { IRecipe } from "@/api/recipes/types/recipe";
+import { IDoughRecipe } from "@/api/recipes/types/doughRecipe";
 import { IRecipeStep } from "@/api/recipes/types/recipeStep";
 
 export class RecipeCalculator {
   public recipe: ICalculatedRecipe;
 
-  constructor(recipe: IRecipe, amountOfDoughBalls: number) {
+  constructor(recipe: IDoughRecipe, amountOfDoughBalls: number) {
     const allIngredientPercentages = recipe.steps
       .flatMap((step) => step.ingredients.map((i) => i.amountPercentage))
       .reduce((p, c) => p + c, 0);
@@ -17,7 +17,7 @@ export class RecipeCalculator {
   }
 
   private mapToCalculatedRecipe(
-    recipe: IRecipe,
+    recipe: IDoughRecipe,
     totalFlourInGrams: number
   ): ICalculatedRecipe {
     return {

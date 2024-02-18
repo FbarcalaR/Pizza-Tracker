@@ -1,11 +1,12 @@
-import { IRecipe } from "@/api/recipes/types/recipe";
+import { IDoughRecipe } from "@/api/recipes/types/doughRecipe";
 import BlockSection from "@/components/block-section/block-section";
 import FormInvisibleInput from "@/components/form-invisible-input/form-invisible-input";
 import RecipeDetailIngredientsList from "../recipe-detail-ingredients-list/recipe-detail-ingredients-list";
 import RecipeDetailRestingTime from "../recipe-detail-resting-time/recipe-detail-resting-time";
+import RecipeDetailNotes from "../recipe-detail-notes/recipe-detail-notes";
 
 type IProps = {
-  recipe: IRecipe;
+  recipe: IDoughRecipe;
 };
 
 export default function RecipeDetailSteps({ recipe }: IProps) {
@@ -29,6 +30,7 @@ export default function RecipeDetailSteps({ recipe }: IProps) {
             <RecipeDetailRestingTime initialRestInHours={step.restInHours}/>
         </BlockSection>
       ))}
+      <RecipeDetailNotes initialNotes={recipe.notes}/>
     </div>
   );
 }

@@ -1,12 +1,12 @@
 'use client'
 
-import { IRecipe } from "@/api/recipes/types/recipe";
+import { IDoughRecipe } from "@/api/recipes/types/doughRecipe";
 import Title from "@/components/title/title";
 import { useState } from "react";
 import RecipeDetailSteps from "./recipe-detail-steps/recipe-detail-steps";
 import FormInvisibleInput from "@/components/form-invisible-input/form-invisible-input";
 
-const mockRecipe1: IRecipe = {
+const mockRecipe1: IDoughRecipe = {
     id: "1",
     title: "Autolisi",
     doughBallWeightInGrams: 260,

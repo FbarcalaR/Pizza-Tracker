@@ -1,11 +1,11 @@
 "use client";
-import { IRecipe } from "@/api/recipes/types/recipe";
+import { IDoughRecipe } from "@/api/recipes/types/doughRecipe";
 import Title from "@/components/title/title";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
 import { BiTrash } from "react-icons/bi";
 
-const mockRecipe1: IRecipe = {
+const mockRecipe1: IDoughRecipe = {
   id: "1",
   title: "Autolisi",
   doughBallWeightInGrams: 260,
@@ -31,7 +31,7 @@ const mockRecipe1: IRecipe = {
   ],
 };
 
-const mockRecipe2: IRecipe = {
+const mockRecipe2: IDoughRecipe = {
   id: "2",
   title: "Biga",
   doughBallWeightInGrams: 260,
@@ -55,7 +55,7 @@ const mockRecipe2: IRecipe = {
   ],
 };
 
-const mockRecipes: IRecipe[] = [mockRecipe1, mockRecipe2];
+const mockRecipes: IDoughRecipe[] = [mockRecipe1, mockRecipe2];
 
 export default function DoughRecipes() {
   const router = useRouter();

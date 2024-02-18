@@ -3,7 +3,7 @@ import MainButton from "@/components/main-button/main-button";
 import CalculationForm from "./calculation-form/calculation-form";
 import CalculationResult from "./calculation-result/calculation-result";
 import { useEffect, useState } from "react";
-import { IRecipe } from "@/api/recipes/types/recipe";
+import { IDoughRecipe } from "@/api/recipes/types/doughRecipe";
 import { RecipeCalculator, ICalculatedRecipe } from "./calculation-result/recipe-calculator/recipe-calculator";
 
 const mockOptions = [
@@ -11,7 +11,7 @@ const mockOptions = [
   { label: "Biga", value: "2" },
 ];
 
-const mockRecipe1: IRecipe = {
+const mockRecipe1: IDoughRecipe = {
   id: "1",
   title: 'Autolisi',
   doughBallWeightInGrams: 260,
@@ -37,7 +37,7 @@ const mockRecipe1: IRecipe = {
   ],
 };
 
-const mockRecipe2: IRecipe = {
+const mockRecipe2: IDoughRecipe = {
   id: "2",
   title: 'Biga',
   doughBallWeightInGrams: 260,
