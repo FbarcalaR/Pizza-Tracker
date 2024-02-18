@@ -9,7 +9,7 @@ type IProps = {
 
 export default function PizzaRecipeNotes({ notes }: IProps) {
     return (
-        <BlockSection className="w-full" title="Ingredients">
+        <BlockSection className="w-full" title="Notes">
             <FormInvisibleTextArea
                 withAutoHeight={true}
                 className="w-full"
