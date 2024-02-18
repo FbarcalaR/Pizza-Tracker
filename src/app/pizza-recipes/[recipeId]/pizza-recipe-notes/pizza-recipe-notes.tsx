@@ -1,21 +1,20 @@
 "use client";
 
+import BlockSection from "@/components/block-section/block-section";
 import FormInvisibleTextArea from "@/components/form-invisible-text-area/form-invisible-text-area";
-import Title from "@/components/title/title";
 
 type IProps = {
-    notes: string;
+    notes?: string;
 };
 
 export default function PizzaRecipeNotes({ notes }: IProps) {
     return (
-        <>
-            <Title className="w-full" title="Ingredients" />
+        <BlockSection className="w-full" title="Ingredients">
             <FormInvisibleTextArea
                 withAutoHeight={true}
                 className="w-full"
                 defaultValue={notes}
             />
-        </>
+        </BlockSection>
     );
 }
