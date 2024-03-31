@@ -1,6 +1,7 @@
 import { ChangeEventHandler, MouseEventHandler } from "react";
 
 type IProps = {
+    name: string;
     className?: string;
     defaultValue?: string;
     type?: string;
@@ -8,9 +9,10 @@ type IProps = {
     onClick?: MouseEventHandler<HTMLInputElement>;
 };
 
-export default function FormInvisibleInput({ className, defaultValue, type, onChange, onClick }: IProps) {
+export default function FormInvisibleInput({ name, className, defaultValue, type, onChange, onClick }: IProps) {
     return (
         <input
+        name={name}
             className={`bg-transparent ${className}`}
             type={type}
             defaultValue={defaultValue}

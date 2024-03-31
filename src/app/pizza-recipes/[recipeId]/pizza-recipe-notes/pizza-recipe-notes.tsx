@@ -11,6 +11,7 @@ export default function PizzaRecipeNotes({ notes }: IProps) {
     return (
         <BlockSection className="w-full" title="Notes">
             <FormInvisibleTextArea
+                name="notes"
                 withAutoHeight={true}
                 className="w-full"
                 defaultValue={notes}

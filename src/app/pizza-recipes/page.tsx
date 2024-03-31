@@ -1,8 +1,10 @@
 "use client";
+import { getAllRecipes, removeRecipe, setRecipe } from "@/api/recipes/handler";
 import { IPizzaRecipe } from "@/api/recipes/types/pizzaRecipe";
+import MainButton from "@/components/main-button/main-button";
 import Title from "@/components/title/title";
 import { useRouter } from "next/navigation";
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { BiTrash } from "react-icons/bi";
 
 const mockRecipe1: IPizzaRecipe = {
@@ -23,14 +25,31 @@ const mockRecipes: IPizzaRecipe[] = [mockRecipe1, mockRecipe2];
 
 export default function PizzaRecipes() {
   const router = useRouter();
+  const [recipes, setRecipes] = useState<IPizzaRecipe[]>([]);
+
   const handleRemoveRecipe = (event: MouseEvent, recipeId: string) => {
     event.stopPropagation();
-    console.log("remove: ", recipeId);
+    
+    removeRecipe(recipeId).then(() => fetchRecipes());
   };
+
+  const handleNewRecipe = () => {
+    const id = (recipes.length +1).toString();
+    setRecipe({ id, title: 'new recipe' })
+      .then(() => fetchRecipes());
+  };
+
+  const fetchRecipes = () => {
+    getAllRecipes().then(recipes => {
+      setRecipes(recipes as IPizzaRecipe[]);
+    });
+  }
+
+  useEffect(() => fetchRecipes(), []);
 
   return (
     <div className="w-full flex flex-col items-center gap-4">
-      {mockRecipes.map((recipe) => (
+      {recipes.map((recipe) => (
         <div key={recipe.id} className="w-full flex flex-col gap-4">
           <Title
             className="cursor-pointer"
@@ -45,6 +64,10 @@ export default function PizzaRecipes() {
           />
         </div>
       ))}
+      
+      <div className="pt-4 w-1/3">
+        <MainButton onClick={() => handleNewRecipe()}>Add new recipe</MainButton>
+      </div>
     </div>
   );
 }

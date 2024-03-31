@@ -1,6 +1,7 @@
 import { ChangeEventHandler, MouseEventHandler, useEffect, useRef } from "react";
 
 type IProps = {
+    name: string;
     withAutoHeight?: boolean;
     className?: string;
     defaultValue?: string;
@@ -8,7 +9,7 @@ type IProps = {
     onClick?: MouseEventHandler<HTMLTextAreaElement>;
 };
 
-export default function FormInvisibleTextArea({ withAutoHeight = false, className, defaultValue, onChange, onClick }: IProps) {
+export default function FormInvisibleTextArea({ name, withAutoHeight = false, className, defaultValue, onChange, onClick }: IProps) {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     const autoHeight = () => {
@@ -26,6 +27,7 @@ export default function FormInvisibleTextArea({ withAutoHeight = false, classNam
     return (
         <textarea
             ref={textAreaRef}
+            name={name}
             className={`bg-transparent ${className}`}
             defaultValue={defaultValue}
             onChange={onChange}
