@@ -1,72 +1,41 @@
 "use client";
-import { IDoughRecipe } from "@/api/recipes/types/doughRecipe";
+import { IDoughRecipe } from "@/api/dough-recipes/types/doughRecipe";
+import { getAllDoughRecipes, removeDoughRecipe, setDoughRecipe } from "@/api/dough-recipes/handler";
 import Title from "@/components/title/title";
 import { useRouter } from "next/navigation";
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { BiTrash } from "react-icons/bi";
-
-const mockRecipe1: IDoughRecipe = {
-  id: "1",
-  title: "Autolisi",
-  doughBallWeightInGrams: 260,
-  steps: [
-    {
-      title: "Step 1",
-      ingredients: [
-        { ingredient: "flour 00", amountPercentage: 0.75 },
-        { ingredient: "flour nuvola", amountPercentage: 0.25 },
-        { ingredient: "water", amountPercentage: 0.55 },
-      ],
-      restInHours: 12,
-    },
-    {
-      title: "Step 2",
-      ingredients: [
-        { ingredient: "water", amountPercentage: 0.15 },
-        { ingredient: "yeast", amountPercentage: 0.006 },
-        { ingredient: "salt", amountPercentage: 0.03 },
-      ],
-      restInHours: 1,
-    },
-  ],
-};
-
-const mockRecipe2: IDoughRecipe = {
-  id: "2",
-  title: "Biga",
-  doughBallWeightInGrams: 260,
-  steps: [
-    {
-      title: "Step 1",
-      ingredients: [
-        { ingredient: "manitoba", amountPercentage: 0.4 },
-        { ingredient: "water", amountPercentage: 0.2 },
-      ],
-    },
-    {
-      title: "Step 2",
-      ingredients: [
-        { ingredient: "00", amountPercentage: 0.6 },
-        { ingredient: "water", amountPercentage: 0.8 },
-        { ingredient: "yeast", amountPercentage: 0.006 },
-        { ingredient: "salt", amountPercentage: 0.03 },
-      ],
-    },
-  ],
-};
-
-const mockRecipes: IDoughRecipe[] = [mockRecipe1, mockRecipe2];
+import MainButton from "@/components/main-button/main-button";
 
 export default function DoughRecipes() {
   const router = useRouter();
+  const [recipes, setRecipes] = useState<IDoughRecipe[]>([]);
+
+  useEffect(() => {
+    fetchRecipes();
+  }, []);
+
   const handleRemoveRecipe = (event: MouseEvent, recipeId: string) => {
     event.stopPropagation();
-    console.log("remove: ", recipeId);
+    
+    removeDoughRecipe(recipeId).then(() => fetchRecipes());
   };
+
+  const handleNewRecipe = () => {
+    const id = (recipes.length +1).toString();
+    setDoughRecipe({ id, title: 'new recipe' })
+      .then(() => fetchRecipes());
+  };
+
+  const fetchRecipes = () => {
+    getAllDoughRecipes().then(recipes => {
+      setRecipes(recipes as IDoughRecipe[]);
+    });
+  }
 
   return (
     <div className="w-full flex flex-col items-center gap-4">
-      {mockRecipes.map((recipe) => (
+      {recipes.map((recipe) => (
         <div key={recipe.id} className="w-full flex flex-col gap-4">
           <Title
             className="cursor-pointer"
@@ -81,6 +50,10 @@ export default function DoughRecipes() {
           />
         </div>
       ))}
+      
+      <div className="pt-4 w-1/3">
+        <MainButton onClick={() => handleNewRecipe()}>Add new recipe</MainButton>
+      </div>
     </div>
   );
 }

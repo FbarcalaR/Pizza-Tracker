@@ -1,6 +1,6 @@
-import { IIngredient } from "@/api/recipes/types/ingredient";
-import { IDoughRecipe } from "@/api/recipes/types/doughRecipe";
-import { IRecipeStep } from "@/api/recipes/types/recipeStep";
+import { IIngredient } from "@/api/dough-recipes/types/ingredient";
+import { IDoughRecipe } from "@/api/dough-recipes/types/doughRecipe";
+import { IRecipeStep } from "@/api/dough-recipes/types/recipeStep";
 
 export class RecipeCalculator {
   public recipe: ICalculatedRecipe;
@@ -46,7 +46,7 @@ export class RecipeCalculator {
     ingredient: IIngredient,
     totalFlour: number
   ): ICalculatedIngredient {
-    const amountInGrams = totalFlour * ingredient.amountPercentage;
+    const amountInGrams = totalFlour * (ingredient.amountPercentage / 100);
     let roundedAmount = amountInGrams;
     if (amountInGrams > 850)
       roundedAmount = Math.round(amountInGrams / 10) * 10;

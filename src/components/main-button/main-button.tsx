@@ -2,7 +2,7 @@ import { MouseEventHandler } from "react";
 
 type IProps = {
   children: React.ReactNode;
-  onClick: MouseEventHandler<HTMLButtonElement>
+  onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
 export default function MainButton({ children, onClick }: IProps) {

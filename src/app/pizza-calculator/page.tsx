@@ -3,7 +3,7 @@ import MainButton from "@/components/main-button/main-button";
 import CalculationForm from "./calculation-form/calculation-form";
 import CalculationResult from "./calculation-result/calculation-result";
 import { useEffect, useState } from "react";
-import { IDoughRecipe } from "@/api/recipes/types/doughRecipe";
+import { IDoughRecipe } from "@/api/dough-recipes/types/doughRecipe";
 import { RecipeCalculator, ICalculatedRecipe } from "./calculation-result/recipe-calculator/recipe-calculator";
 
 const mockOptions = [
@@ -19,18 +19,18 @@ const mockRecipe1: IDoughRecipe = {
     {
       title: "Step 1",
       ingredients: [
-        { ingredient: "flour 00", amountPercentage: 0.75 },
-        { ingredient: "flour nuvola", amountPercentage: 0.25 },
-        { ingredient: "water", amountPercentage: 0.55 },
+        { ingredient: "flour 00", amountPercentage: 75 },
+        { ingredient: "flour nuvola", amountPercentage: 25 },
+        { ingredient: "water", amountPercentage: 55 },
       ],
       restInHours: 12
     },
     {
       title: "Step 2",
       ingredients: [
-        { ingredient: "water", amountPercentage: 0.15 },
-        { ingredient: "yeast", amountPercentage: 0.006 },
-        { ingredient: "salt", amountPercentage: 0.03 },
+        { ingredient: "water", amountPercentage: 15 },
+        { ingredient: "yeast", amountPercentage: 0.6 },
+        { ingredient: "salt", amountPercentage: 3 },
       ],
       restInHours: 1
     },

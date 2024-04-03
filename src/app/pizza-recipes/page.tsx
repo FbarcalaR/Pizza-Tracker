@@ -1,27 +1,11 @@
 "use client";
-import { getAllRecipes, removeRecipe, setRecipe } from "@/api/recipes/handler";
-import { IPizzaRecipe } from "@/api/recipes/types/pizzaRecipe";
+import { getAllPizzaRecipes, removePizzaRecipe, setPizzaRecipe } from "@/api/pizza-recipes/handler";
+import { IPizzaRecipe } from "@/api/pizza-recipes/types/pizzaRecipe";
 import MainButton from "@/components/main-button/main-button";
 import Title from "@/components/title/title";
 import { useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useState } from "react";
 import { BiTrash } from "react-icons/bi";
-
-const mockRecipe1: IPizzaRecipe = {
-  id: "1",
-  title: "Margherita",
-  ingredients: '- tomato sauce\n- Mozzarella\n- Basil',
-  notes: 'all on top'
-};
-
-const mockRecipe2: IPizzaRecipe = {
-    id: "2",
-    title: "Pumpkin",
-    ingredients: '- Pumpkin\n- shiitake\n- ricotta',
-    notes: 'all on top'
-  };
-
-const mockRecipes: IPizzaRecipe[] = [mockRecipe1, mockRecipe2];
 
 export default function PizzaRecipes() {
   const router = useRouter();
@@ -30,17 +14,17 @@ export default function PizzaRecipes() {
   const handleRemoveRecipe = (event: MouseEvent, recipeId: string) => {
     event.stopPropagation();
     
-    removeRecipe(recipeId).then(() => fetchRecipes());
+    removePizzaRecipe(recipeId).then(() => fetchRecipes());
   };
 
   const handleNewRecipe = () => {
     const id = (recipes.length +1).toString();
-    setRecipe({ id, title: 'new recipe' })
+    setPizzaRecipe({ id, title: 'new recipe' })
       .then(() => fetchRecipes());
   };
 
   const fetchRecipes = () => {
-    getAllRecipes().then(recipes => {
+    getAllPizzaRecipes().then(recipes => {
       setRecipes(recipes as IPizzaRecipe[]);
     });
   }

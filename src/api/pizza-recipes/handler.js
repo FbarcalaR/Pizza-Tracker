@@ -1,18 +1,18 @@
 import { doc, setDoc, getDoc, getDocs, deleteDoc, collection, query } from "firebase/firestore"; 
 import { db } from '@/api/setup/firebase'
 
-const recipesCollectionName = 'recipes';
+const collectionName = 'pizza-recipes';
 
-export const setRecipe = async (recipe) => {    
+export const setPizzaRecipe = async (recipe) => {    
     try {
-        await setDoc(doc(db, recipesCollectionName, recipe.id), recipe);
+        await setDoc(doc(db, collectionName, recipe.id), recipe);
     } catch(err) {
         console.log(err)
     }
 }
 
-export const getAllRecipes = async () => {
-    const collectionRef = collection(db, recipesCollectionName);
+export const getAllPizzaRecipes = async () => {
+    const collectionRef = collection(db, collectionName);
     const q = query(collectionRef);
     const querySnapshot = await getDocs(q)
 
@@ -22,8 +22,8 @@ export const getAllRecipes = async () => {
     return  res;
 }
 
-export const getRecipe = async (id) => {
-    const docRef = doc(db, recipesCollectionName, id);
+export const getPizzaRecipe = async (id) => {
+    const docRef = doc(db, collectionName, id);
     const docSnap = await getDoc(docRef);
     
     if (docSnap.exists()) {
@@ -33,6 +33,6 @@ export const getRecipe = async (id) => {
     }
 }
 
-export const removeRecipe = async (id) => {
-    await deleteDoc(doc(db, recipesCollectionName, id));
+export const removePizzaRecipe = async (id) => {
+    await deleteDoc(doc(db, collectionName, id));
 };
