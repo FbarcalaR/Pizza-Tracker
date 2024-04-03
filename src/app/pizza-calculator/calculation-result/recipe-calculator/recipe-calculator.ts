@@ -5,14 +5,17 @@ import { IRecipeStep } from "@/api/dough-recipes/types/recipeStep";
 export class RecipeCalculator {
   public recipe: ICalculatedRecipe;
 
+  private defaultBallWeight = 280;
+
   constructor(recipe: IDoughRecipe, amountOfDoughBalls: number) {
     const allIngredientPercentages = recipe.steps
-      .flatMap((step) => step.ingredients.map((i) => i.amountPercentage))
-      .reduce((p, c) => p + c, 0);
-    const totalFlourInGrams =
-      (recipe.doughBallWeightInGrams * amountOfDoughBalls) /
-      allIngredientPercentages;
+      ?.flatMap((step) => step.ingredients.map((i) => i.amountPercentage))
+      .reduce((p, c) => p + c, 0)
+      / 100;
 
+    const ballWeight = recipe.doughBallWeightInGrams ?? this.defaultBallWeight;
+    const totalFlourInGrams = (ballWeight * amountOfDoughBalls) / allIngredientPercentages;
+    debugger;
     this.recipe = this.mapToCalculatedRecipe(recipe, totalFlourInGrams);
   }
 
@@ -23,7 +26,7 @@ export class RecipeCalculator {
     return {
       title: recipe.title,
       doughBallWeightInGrams: recipe.doughBallWeightInGrams,
-      steps: recipe.steps.map((s) =>
+      steps: recipe.steps?.map((s) =>
         this.mapToCalculatedStep(s, totalFlourInGrams)
       ),
     };
@@ -50,10 +53,8 @@ export class RecipeCalculator {
     let roundedAmount = amountInGrams;
     if (amountInGrams > 850)
       roundedAmount = Math.round(amountInGrams / 10) * 10;
-    else if (amountInGrams > 100)
-      roundedAmount = Math.round(amountInGrams);
-    else
-      roundedAmount = Math.round(amountInGrams * 10) / 10;
+    else if (amountInGrams > 100) roundedAmount = Math.round(amountInGrams);
+    else roundedAmount = Math.round(amountInGrams * 10) / 10;
 
     return {
       ingredient: ingredient.ingredient,

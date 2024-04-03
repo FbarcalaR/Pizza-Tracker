@@ -22,8 +22,8 @@ export default function DoughRecipes() {
   };
 
   const handleNewRecipe = () => {
-    const id = (recipes.length +1).toString();
-    setDoughRecipe({ id, title: 'new recipe' })
+    const id = Math.max(...recipes.map(r => +r.id));
+    setDoughRecipe({ id: (id+1).toString(), title: 'new recipe' })
       .then(() => fetchRecipes());
   };
 

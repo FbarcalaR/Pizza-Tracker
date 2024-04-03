@@ -5,70 +5,17 @@ import CalculationResult from "./calculation-result/calculation-result";
 import { useEffect, useState } from "react";
 import { IDoughRecipe } from "@/api/dough-recipes/types/doughRecipe";
 import { RecipeCalculator, ICalculatedRecipe } from "./calculation-result/recipe-calculator/recipe-calculator";
-
-const mockOptions = [
-  { label: "Autolisi", value: "1" },
-  { label: "Biga", value: "2" },
-];
-
-const mockRecipe1: IDoughRecipe = {
-  id: "1",
-  title: 'Autolisi',
-  doughBallWeightInGrams: 260,
-  steps: [
-    {
-      title: "Step 1",
-      ingredients: [
-        { ingredient: "flour 00", amountPercentage: 75 },
-        { ingredient: "flour nuvola", amountPercentage: 25 },
-        { ingredient: "water", amountPercentage: 55 },
-      ],
-      restInHours: 12
-    },
-    {
-      title: "Step 2",
-      ingredients: [
-        { ingredient: "water", amountPercentage: 15 },
-        { ingredient: "yeast", amountPercentage: 0.6 },
-        { ingredient: "salt", amountPercentage: 3 },
-      ],
-      restInHours: 1
-    },
-  ],
-};
-
-const mockRecipe2: IDoughRecipe = {
-  id: "2",
-  title: 'Biga',
-  doughBallWeightInGrams: 260,
-  steps: [
-    {
-      title: "Step 1",
-      ingredients: [
-        { ingredient: "manitoba", amountPercentage: 0.4 },
-        { ingredient: "water", amountPercentage: 0.2 },
-      ],
-    },
-    {
-      title: "Step 2",
-      ingredients: [
-        { ingredient: "00", amountPercentage: 0.6 },
-        { ingredient: "water", amountPercentage: 0.8 },
-        { ingredient: "yeast", amountPercentage: 0.006 },
-        { ingredient: "salt", amountPercentage: 0.03 },
-      ],
-    },
-  ],
-};
-
-const recipes = [mockRecipe1, mockRecipe2];
+import { getAllDoughRecipes } from "@/api/dough-recipes/handler";
+import { Option } from "@/components/form-select/form-select";
 
 export default function PizzaCalculator() {
+  const [calculatedRecipe, setCalculatedRecipe] = useState<ICalculatedRecipe | undefined>();
+  const [doughRecipeOptions, setDoughRecipeOptions] = useState<Option[]>([]);
+  const [doughRecipes, setDoughRecipes] = useState<IDoughRecipe[]>([]);
   const [formValues, setFormValues] = useState({
     doughBallsAmount: 1,
-    recipeId: recipes[0]?.id,
+    recipeId: doughRecipes[0]?.id,
   });
-  const [calculatedRecipe, setCalculatedRecipe] = useState<ICalculatedRecipe | undefined>();
 
   const handleFormChanged = (newValues: {
     doughBallsAmount?: any;
@@ -78,18 +25,28 @@ export default function PizzaCalculator() {
   };
 
   useEffect(() => {
-    const recipe = recipes.find(recipe => recipe.id === formValues.recipeId);
+    const recipe = doughRecipes.find(recipe => recipe.id === formValues.recipeId);
     if(!recipe) return;
-    const calculatedRecipe = new RecipeCalculator(recipe, formValues.doughBallsAmount);
+    const calculatedRecipe = new RecipeCalculator(recipe, +formValues.doughBallsAmount);
     setCalculatedRecipe(calculatedRecipe.recipe);
-  }, [formValues]);
+  }, [doughRecipes, formValues]);
+
+  useEffect(() => {
+    getAllDoughRecipes().then(recipes => {
+      setDoughRecipes(recipes as IDoughRecipe[]);
+      setDoughRecipeOptions(recipes.map(r => ({
+        value: r.id,
+        label: r.title,
+      })));
+    });
+  }, []);
 
   return (
     <div className="flex flex-col items-center gap-7">
       <CalculationForm
-        recipeOptions={mockOptions}
+        recipeOptions={doughRecipeOptions}
         onFormChange={handleFormChanged}
-        defaultValues={{doughBallsAmount: 1, recipeId: recipes[0]?.id}}
+        defaultValues={{doughBallsAmount: 1, recipeId: doughRecipes[0]?.id}}
       ></CalculationForm>
 
       {calculatedRecipe && <CalculationResult recipe={calculatedRecipe} />}

@@ -1,6 +1,5 @@
 import FormInput from "@/components/form-input/form-input";
 import { Option, FormSelect } from "@/components/form-select/form-select";
-import { useEffect } from "react";
 
 type IProps = {
     recipeOptions: Option[];
