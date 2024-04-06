@@ -15,7 +15,7 @@ export class RecipeCalculator {
 
     const ballWeight = recipe.doughBallWeightInGrams ?? this.defaultBallWeight;
     const totalFlourInGrams = (ballWeight * amountOfDoughBalls) / allIngredientPercentages;
-    debugger;
+
     this.recipe = this.mapToCalculatedRecipe(recipe, totalFlourInGrams);
   }
 

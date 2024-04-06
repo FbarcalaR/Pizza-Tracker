@@ -54,10 +54,6 @@ export default function PizzaCalculator() {
       ></CalculationForm>
 
       {calculatedRecipe && <CalculationResult recipe={calculatedRecipe} />}
-
-      <div className="w-1/3">
-        <MainButton>Add new diary entry</MainButton>
-      </div>
     </div>
   );
 }

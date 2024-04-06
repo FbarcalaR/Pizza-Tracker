@@ -51,8 +51,10 @@ export default function DoughRecipes() {
         </div>
       ))}
       
-      <div className="pt-4 w-1/3">
-        <MainButton onClick={() => handleNewRecipe()}>Add new recipe</MainButton>
+      <div className="pt-4 w-1/3 min-w-min">
+        <MainButton onClick={() => handleNewRecipe()}>
+          <span className="text-nowrap">Add new recipe</span>
+        </MainButton>
       </div>
     </div>
   );
