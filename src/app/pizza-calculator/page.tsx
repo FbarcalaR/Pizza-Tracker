@@ -38,6 +38,10 @@ export default function PizzaCalculator() {
         value: r.id,
         label: r.title,
       })));
+      setFormValues({
+        doughBallsAmount: 1,
+        recipeId: recipes[0]?.id,
+      });
     });
   }, []);
 
