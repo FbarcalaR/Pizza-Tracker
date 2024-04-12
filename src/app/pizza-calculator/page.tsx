@@ -7,8 +7,11 @@ import { IDoughRecipe } from "@/api/dough-recipes/types/doughRecipe";
 import { RecipeCalculator, ICalculatedRecipe } from "./calculation-result/recipe-calculator/recipe-calculator";
 import { getAllDoughRecipes } from "@/api/dough-recipes/handler";
 import { Option } from "@/components/form-select/form-select";
+import { useRouter } from "next/navigation";
+import { saveNewDiaryEntryFromCalculator } from "@/api/diary/handler";
 
 export default function PizzaCalculator() {
+  const router = useRouter();
   const [calculatedRecipe, setCalculatedRecipe] = useState<ICalculatedRecipe | undefined>();
   const [doughRecipeOptions, setDoughRecipeOptions] = useState<Option[]>([]);
   const [doughRecipes, setDoughRecipes] = useState<IDoughRecipe[]>([]);
@@ -22,6 +25,21 @@ export default function PizzaCalculator() {
     recipeId?: any;
   }) => {
     setFormValues((prevValues) => ({...prevValues, ...newValues}));    
+  };
+
+  const handleNewDiaryEntry = () => {
+    let body = `${calculatedRecipe?.title} - ${calculatedRecipe?.doughBallWeightInGrams}g balls\n`;
+    calculatedRecipe?.steps.forEach(step => {
+      body += `${step.title}\n`
+      step.ingredients.forEach(ingredient => {
+        body += `${ingredient.ingredient}    ${ingredient.amountInGrams}g\n`
+      });
+      if (step.restInHours)
+        body += `Rest for ${step.restInHours} hours\n`;
+      body += '\n';
+    });
+    saveNewDiaryEntryFromCalculator(body)
+      .then((id) => router.push(`/diary/${id}`));
   };
 
   useEffect(() => {
@@ -54,6 +72,13 @@ export default function PizzaCalculator() {
       ></CalculationForm>
 
       {calculatedRecipe && <CalculationResult recipe={calculatedRecipe} />}
+
+      <div className="pt-4 w-1/3 min-w-min">
+        <MainButton onClick={() => handleNewDiaryEntry()}>
+          <span className="text-nowrap">Add new diary entry</span>
+        </MainButton>
+      </div>
+
     </div>
   );
 }

@@ -3,9 +3,25 @@ import { db } from '@/api/setup/firebase'
 
 const collectionName = 'diary-entries';
 
-export const saveDiaryEntry = async (diaryEntry) => {    
+export const saveDiaryEntry = async (diaryEntry) => {
     try {
         await setDoc(doc(db, collectionName, diaryEntry.id), diaryEntry);
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+export const saveNewDiaryEntryFromCalculator = async (diaryEntryBody) => {
+    const diaryEntries = await getAllDiaryEntries();
+    const id = Math.max(0, ...diaryEntries.map(r => +r.id)) + 1;
+    const diaryEntry = {
+        id: id.toString(),
+        title: new Date().toLocaleDateString('ES'),
+        body: diaryEntryBody
+    };
+    try {
+        await setDoc(doc(db, collectionName, diaryEntry.id), diaryEntry);
+        return id;
     } catch(err) {
         console.log(err)
     }
@@ -29,7 +45,7 @@ export const getDiaryEntry = async (id) => {
     if (docSnap.exists()) {
         return docSnap.data();
     } else {
-        throw Error('No dough recipes with id ' + id);
+        throw Error('No diary entry exist with id ' + id);
     }
 }
 
