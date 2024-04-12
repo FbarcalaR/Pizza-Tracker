@@ -1,7 +1,7 @@
 'use client'
 
 import MenuButton from "./menu-button/menu-button";
-import { LuConstruction } from "react-icons/lu";
+import { LuBookOpen } from "react-icons/lu";
 import { LuCalculator } from "react-icons/lu";
 import { LuWheat } from "react-icons/lu";
 import { CiPizza } from "react-icons/ci";
@@ -12,6 +12,7 @@ const Pages = {
   PizzaRecipes: '/pizza-recipes',
   DoughRecipes: '/dough-recipes',
   Calculator: '/pizza-calculator',
+  Diary: '/diary',
 }
 
 export default function FooterMenu() {
@@ -31,8 +32,10 @@ export default function FooterMenu() {
         <Link href={Pages.Calculator}><LuCalculator className="w-full h-full"/></Link>
       </MenuButton>
 
-      <MenuButton><LuConstruction className="w-full h-full"/></MenuButton>
-      <MenuButton><LuConstruction className="w-full h-full"/></MenuButton>
+      
+      <MenuButton active={pathname.includes(Pages.Diary) }>
+        <Link href={Pages.Diary}><LuBookOpen className="w-full h-full"/></Link>
+      </MenuButton>
     </div>
   );
 }
