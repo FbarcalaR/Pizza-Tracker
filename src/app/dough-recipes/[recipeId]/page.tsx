@@ -2,7 +2,7 @@
 
 import { IDoughRecipe } from "@/api/dough-recipes/types/doughRecipe";
 import Title from "@/components/title/title";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import RecipeDetailSteps from "./recipe-detail-steps/recipe-detail-steps";
 import FormInvisibleInput from "@/components/form-invisible-input/form-invisible-input";
 import { getDoughRecipe, setDoughRecipe } from '@/api/dough-recipes/handler'; 

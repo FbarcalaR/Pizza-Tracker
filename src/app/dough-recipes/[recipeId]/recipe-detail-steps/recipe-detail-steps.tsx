@@ -45,6 +45,13 @@ export default function RecipeDetailSteps({ steps, notes, stepsChanged, notesCha
     stepsChanged && stepsChanged(steps!)
   }
 
+  const handleStepRemoval = (indexToRemove: number) => {
+    if (!steps)
+      steps = [];
+    steps = steps.filter((_, index) => index !== indexToRemove);
+    stepsChanged && stepsChanged(steps!)
+  }
+
   return (
     <>
     <div className="w-full flex flex-col gap-4">
@@ -52,6 +59,7 @@ export default function RecipeDetailSteps({ steps, notes, stepsChanged, notesCha
         <BlockSection
           key={step.title}
           bodyClassName="flex flex-col gap-1"
+          onRemove={() => handleStepRemoval(i)}
           titleTemplate={
             <FormInvisibleInput
               name='title'
