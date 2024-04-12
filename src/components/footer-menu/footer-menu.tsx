@@ -1,10 +1,9 @@
 'use client'
 
 import MenuButton from "./menu-button/menu-button";
-import { LuBookOpen } from "react-icons/lu";
+import { LuBookOpen, LuPizza } from "react-icons/lu";
 import { LuCalculator } from "react-icons/lu";
 import { LuWheat } from "react-icons/lu";
-import { CiPizza } from "react-icons/ci";
 import { usePathname } from 'next/navigation'
 import Link from "next/link";
 
@@ -21,7 +20,7 @@ export default function FooterMenu() {
   return (
     <div className="pt-3 pb-3 pl-6 pr-6 sticky top-full flex justify-around w-full shadow-white shadow-2xl">
     <MenuButton active={pathname.includes(Pages.PizzaRecipes) }>
-      <Link href={Pages.PizzaRecipes}><CiPizza className="w-full h-full"/></Link>
+      <Link href={Pages.PizzaRecipes}><LuPizza className="w-full h-full"/></Link>
     </MenuButton>
       
       <MenuButton active={pathname.includes(Pages.DoughRecipes) }>
