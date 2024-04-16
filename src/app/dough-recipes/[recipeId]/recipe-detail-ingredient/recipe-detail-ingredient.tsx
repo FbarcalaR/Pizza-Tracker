@@ -1,6 +1,5 @@
 import { IIngredient } from "@/api/dough-recipes/types/ingredient";
 import FormInvisibleInput from "@/components/form-invisible-input/form-invisible-input";
-import { FormEvent } from "react";
 
 type IProps = {
     ingredient: IIngredient,
@@ -31,7 +30,7 @@ export default function RecipeDetailIngredient({ ingredient, className, ingredie
               name={`amountPercentage`}
               className="text-end w-8"
               type="text"
-              defaultValue={Math.round(ingredient.amountPercentage).toString()}
+              defaultValue={ingredient.amountPercentage.toString()}
               onBlur={(ev) => handleAmountChange(ev.target.value)}
             />
             %
