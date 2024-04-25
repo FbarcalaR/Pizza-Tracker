@@ -17,7 +17,7 @@ export default function PizzaCalculator() {
   const [doughRecipes, setDoughRecipes] = useState<IDoughRecipe[]>([]);
   const [formValues, setFormValues] = useState({
     doughBallsAmount: 1,
-    recipeId: doughRecipes[0]?.id,
+    recipeId: doughRecipes ? doughRecipes[0]?.id : undefined,
   });
 
   const handleFormChanged = (newValues: {
@@ -43,7 +43,7 @@ export default function PizzaCalculator() {
   };
 
   useEffect(() => {
-    const recipe = doughRecipes.find(recipe => recipe.id === formValues.recipeId);
+    const recipe = doughRecipes?.find(recipe => recipe.id === formValues.recipeId);
     if(!recipe) return;
     const calculatedRecipe = new RecipeCalculator(recipe, +formValues.doughBallsAmount);
     setCalculatedRecipe(calculatedRecipe.recipe);
@@ -52,13 +52,13 @@ export default function PizzaCalculator() {
   useEffect(() => {
     getAllDoughRecipes().then(recipes => {
       setDoughRecipes(recipes as IDoughRecipe[]);
-      setDoughRecipeOptions(recipes.map(r => ({
+      setDoughRecipeOptions((recipes ?? []).map(r => ({
         value: r.id,
         label: r.title,
       })));
       setFormValues({
         doughBallsAmount: 1,
-        recipeId: recipes[0]?.id,
+        recipeId: recipes ? recipes[0]?.id : undefined,
       });
     });
   }, []);
@@ -68,7 +68,7 @@ export default function PizzaCalculator() {
       <CalculationForm
         recipeOptions={doughRecipeOptions}
         onFormChange={handleFormChanged}
-        defaultValues={{doughBallsAmount: 1, recipeId: doughRecipes[0]?.id}}
+        defaultValues={{doughBallsAmount: 1, recipeId: doughRecipes ? doughRecipes[0]?.id : '0' }}
       ></CalculationForm>
 
       {calculatedRecipe && <CalculationResult recipe={calculatedRecipe} />}

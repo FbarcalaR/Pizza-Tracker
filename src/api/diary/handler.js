@@ -13,6 +13,7 @@ async function getCollectionName() {
 export const saveDiaryEntry = async (diaryEntry) => {
     try {
         const collectionName = await getCollectionName();
+        if(!collectionName) return;
         await setDoc(doc(db, collectionName, diaryEntry.id), diaryEntry);
     } catch(err) {
         console.log(err)
@@ -29,6 +30,7 @@ export const saveNewDiaryEntryFromCalculator = async (diaryEntryBody) => {
     };
     try {
         const collectionName = await getCollectionName();
+        if(!collectionName) return;
         await setDoc(doc(db, collectionName, diaryEntry.id), diaryEntry);
         return id;
     } catch(err) {
@@ -38,6 +40,7 @@ export const saveNewDiaryEntryFromCalculator = async (diaryEntryBody) => {
 
 export const getAllDiaryEntries = async () => {
     const collectionName = await getCollectionName();
+    if(!collectionName) return;
     if(!collectionName) return [];
     const collectionRef = collection(db, collectionName);
     const q = query(collectionRef);
@@ -51,6 +54,7 @@ export const getAllDiaryEntries = async () => {
 
 export const getDiaryEntry = async (id) => {
     const collectionName = await getCollectionName();
+    if(!collectionName) return;
     const docRef = doc(db, collectionName, id);
     const docSnap = await getDoc(docRef);
     
@@ -63,5 +67,6 @@ export const getDiaryEntry = async (id) => {
 
 export const removeDiaryEntry = async (id) => {
     const collectionName = await getCollectionName();
+    if(!collectionName) return;
     await deleteDoc(doc(db, collectionName, id));
 };

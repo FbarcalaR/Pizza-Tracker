@@ -33,7 +33,7 @@ export default function PizzaRecipes() {
 
   return (
     <div className="w-full flex flex-col items-center gap-4">
-      {recipes.map((recipe) => (
+      {recipes && recipes.map((recipe) => (
         <div key={recipe.id} className="w-full flex flex-col gap-4">
           <Title
             className="cursor-pointer"

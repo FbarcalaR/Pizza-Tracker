@@ -12,7 +12,8 @@ async function getCollectionName() {
 
 export const setPizzaRecipe = async (recipe) => {    
     try {
-    const collectionName = await getCollectionName();
+        const collectionName = await getCollectionName();
+        if(!collectionName) return;
         await setDoc(doc(db, collectionName, recipe.id), recipe);
     } catch(err) {
         console.log(err)
@@ -21,6 +22,7 @@ export const setPizzaRecipe = async (recipe) => {
 
 export const getAllPizzaRecipes = async () => {
     const collectionName = await getCollectionName();
+    if(!collectionName) return;
     const collectionRef = collection(db, collectionName);
     const q = query(collectionRef);
     const querySnapshot = await getDocs(q)
@@ -33,6 +35,7 @@ export const getAllPizzaRecipes = async () => {
 
 export const getPizzaRecipe = async (id) => {
     const collectionName = await getCollectionName();
+    if(!collectionName) return;
     const docRef = doc(db, collectionName, id);
     const docSnap = await getDoc(docRef);
     
@@ -45,5 +48,6 @@ export const getPizzaRecipe = async (id) => {
 
 export const removePizzaRecipe = async (id) => {
     const collectionName = await getCollectionName();
+    if(!collectionName) return;
     await deleteDoc(doc(db, collectionName, id));
 };

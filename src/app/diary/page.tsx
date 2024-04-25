@@ -22,7 +22,7 @@ export default function Diary() {
   };
 
   const handleNewDiaryEntry = () => {
-    const id = Math.max(0, ...diaryEntries.map(r => +r.id));
+    const id = Math.max(0, ...diaryEntries?.map(r => +r.id));
     saveDiaryEntry({ id: (id+1).toString(), title: 'new diary entry' })
       .then(() => fetchDiaryEntries());
   };
@@ -35,7 +35,7 @@ export default function Diary() {
 
   return (
     <div className="w-full flex flex-col items-center gap-4">
-      {diaryEntries.map((entry) => (
+      {diaryEntries && diaryEntries.map((entry) => (
         <div key={entry.id} className="w-full flex flex-col gap-4">
           <Title
             className="cursor-pointer"

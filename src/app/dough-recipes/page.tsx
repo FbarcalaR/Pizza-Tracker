@@ -22,7 +22,7 @@ export default function DoughRecipes() {
   };
 
   const handleNewRecipe = () => {
-    const id = Math.max(0, ...recipes.map(r => +r.id));
+    const id = Math.max(0, ...recipes?.map(r => +r.id));
     setDoughRecipe({ id: (id+1).toString(), title: 'new recipe' })
       .then(() => fetchRecipes());
   };
@@ -35,7 +35,7 @@ export default function DoughRecipes() {
 
   return (
     <div className="w-full flex flex-col items-center gap-4">
-      {recipes.map((recipe) => (
+      {recipes && recipes.map((recipe) => (
         <div key={recipe.id} className="w-full flex flex-col gap-4">
           <Title
             className="cursor-pointer"
