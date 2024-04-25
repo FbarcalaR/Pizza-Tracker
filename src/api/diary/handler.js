@@ -1,10 +1,18 @@
 import { doc, setDoc, getDoc, getDocs, deleteDoc, collection, query } from "firebase/firestore"; 
+import { getAuth } from "firebase/auth";
 import { db } from '@/api/setup/firebase'
 
-const collectionName = 'diary-entries';
+async function getCollectionName() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if(!user) return null;
+    const collectionName = `users/${user.uid}/diary-entries`;
+    return collectionName;
+}
 
 export const saveDiaryEntry = async (diaryEntry) => {
     try {
+        const collectionName = await getCollectionName();
         await setDoc(doc(db, collectionName, diaryEntry.id), diaryEntry);
     } catch(err) {
         console.log(err)
@@ -20,6 +28,7 @@ export const saveNewDiaryEntryFromCalculator = async (diaryEntryBody) => {
         body: diaryEntryBody
     };
     try {
+        const collectionName = await getCollectionName();
         await setDoc(doc(db, collectionName, diaryEntry.id), diaryEntry);
         return id;
     } catch(err) {
@@ -28,6 +37,8 @@ export const saveNewDiaryEntryFromCalculator = async (diaryEntryBody) => {
 }
 
 export const getAllDiaryEntries = async () => {
+    const collectionName = await getCollectionName();
+    if(!collectionName) return [];
     const collectionRef = collection(db, collectionName);
     const q = query(collectionRef);
     const querySnapshot = await getDocs(q)
@@ -39,6 +50,7 @@ export const getAllDiaryEntries = async () => {
 }
 
 export const getDiaryEntry = async (id) => {
+    const collectionName = await getCollectionName();
     const docRef = doc(db, collectionName, id);
     const docSnap = await getDoc(docRef);
     
@@ -50,5 +62,6 @@ export const getDiaryEntry = async (id) => {
 }
 
 export const removeDiaryEntry = async (id) => {
+    const collectionName = await getCollectionName();
     await deleteDoc(doc(db, collectionName, id));
 };

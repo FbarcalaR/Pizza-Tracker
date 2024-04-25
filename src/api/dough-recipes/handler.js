@@ -1,10 +1,18 @@
 import { doc, setDoc, getDoc, getDocs, deleteDoc, collection, query } from "firebase/firestore"; 
+import { getAuth } from "firebase/auth";
 import { db } from '@/api/setup/firebase'
 
-const collectionName = 'dough-recipes';
+async function getCollectionName() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if(!user) return null;
+    const collectionName = `users/${user.uid}/dough-recipes`;
+    return collectionName;
+}
 
 export const setDoughRecipe = async (recipe) => {    
     try {
+    const collectionName = await getCollectionName();
         await setDoc(doc(db, collectionName, recipe.id), recipe);
     } catch(err) {
         console.log(err)
@@ -12,6 +20,7 @@ export const setDoughRecipe = async (recipe) => {
 }
 
 export const getAllDoughRecipes = async () => {
+    const collectionName = await getCollectionName();
     const collectionRef = collection(db, collectionName);
     const q = query(collectionRef);
     const querySnapshot = await getDocs(q)
@@ -23,6 +32,7 @@ export const getAllDoughRecipes = async () => {
 }
 
 export const getDoughRecipe = async (id) => {
+    const collectionName = await getCollectionName();
     const docRef = doc(db, collectionName, id);
     const docSnap = await getDoc(docRef);
     
@@ -34,5 +44,6 @@ export const getDoughRecipe = async (id) => {
 }
 
 export const removeDoughRecipe = async (id) => {
+    const collectionName = await getCollectionName();
     await deleteDoc(doc(db, collectionName, id));
 };
