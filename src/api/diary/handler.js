@@ -1,6 +1,6 @@
 import { doc, setDoc, getDoc, getDocs, deleteDoc, collection, query } from "firebase/firestore"; 
 import { getAuth } from "firebase/auth";
-import { db } from '@/api/setup/firebase'
+import { db } from '@/api/firebase/firebase-db'
 
 async function getCollectionName() {
     const auth = getAuth();
