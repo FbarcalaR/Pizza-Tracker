@@ -9,7 +9,7 @@ type IProps = {
   };
 
 export default function RecipeDetailIngredientsList({ step, ingredientsChanged }: IProps) {
-  let [ingredients, setIngredients] = useState(step.ingredients);
+  const [ingredients, setIngredients] = useState(step.ingredients);
 
   const handleAddIngredient = () => {
     setIngredients((prev) => [

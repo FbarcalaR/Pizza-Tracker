@@ -7,7 +7,7 @@ type IProps = {
 };
 
 export default function RecipeDetailRestingTime({initialRestInHours, hoursChanged}: IProps) {
-  let [restInHours, setRestInHours] = useState(initialRestInHours);
+  const [restInHours, setRestInHours] = useState(initialRestInHours);
 
   const handleAddRestingTime = () => {
     setRestInHours(1);

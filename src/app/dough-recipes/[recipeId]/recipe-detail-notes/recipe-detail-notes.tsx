@@ -7,7 +7,7 @@ type IProps = {
 };
 
 export default function RecipeDetailNotes({ initialNotes, notesChanged }: IProps) {
-  let [notes, setNotes] = useState(initialNotes);
+  const [notes, setNotes] = useState(initialNotes);
   
   const handleAddNotes = () => {
     setNotes('New note');
