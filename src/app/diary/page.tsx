@@ -1,6 +1,6 @@
 "use client";
 import { IDiaryEntry } from "@/api/diary/types/diaryEntry";
-import { getAllDiaryEntries, removeDiaryEntry, saveDiaryEntry } from "@/api/diary/handler";
+import { createDiaryEntry, getAllDiaryEntries, removeDiaryEntry } from "@/api/diary/handler";
 import Title from "@/components/title/title";
 import { useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useState } from "react";
@@ -22,8 +22,7 @@ export default function Diary() {
   };
 
   const handleNewDiaryEntry = () => {
-    const id = Math.max(0, ...diaryEntries?.map(r => +r.id));
-    saveDiaryEntry({ id: (id+1).toString(), title: 'new diary entry' })
+    createDiaryEntry({ title: 'new diary entry' })
       .then(() => fetchDiaryEntries());
   };
 
